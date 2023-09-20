@@ -1,0 +1,183 @@
+import java.lang.Math;
+
+// Clase base para todas las figuras geométricas
+abstract class FiguraGeometrica {
+    abstract double calcularArea();
+    abstract double calcularPerimetro();
+}
+
+// Clase para el círculo
+class Circulo extends FiguraGeometrica {
+    double radio;
+
+    Circulo(double radio) {
+        this.radio = radio;
+    }
+
+    @Override
+    double calcularArea() {
+        return Math.PI * radio * radio;
+    }
+
+    @Override
+    double calcularPerimetro() {
+        return 2 * Math.PI * radio;
+    }
+}
+
+// Clase para el rectángulo
+class Rectangulo extends FiguraGeometrica {
+    double base;
+    double altura;
+
+    Rectangulo(double base, double altura) {
+        this.base = base;
+        this.altura = altura;
+    }
+
+    @Override
+    double calcularArea() {
+        return base * altura;
+    }
+
+    @Override
+    double calcularPerimetro() {
+        return 2 * (base + altura);
+    }
+}
+
+// Clase para el cuadrado
+class Cuadrado extends FiguraGeometrica {
+    double lado;
+
+    Cuadrado(double lado) {
+        this.lado = lado;
+    }
+
+    @Override
+    double calcularArea() {
+        return lado * lado;
+    }
+
+    @Override
+    double calcularPerimetro() {
+        return 4 * lado;
+    }
+}
+
+// Clase para el triángulo rectángulo
+class TrianguloRectangulo extends FiguraGeometrica {
+    double base;
+    double altura;
+
+    TrianguloRectangulo(double base, double altura) {
+        this.base = base;
+        this.altura = altura;
+    }
+
+    double calcularHipotenusa() {
+        return Math.sqrt(base * base + altura * altura);
+    }
+
+    String determinarTipoTriangulo() {
+        if (base == altura) {
+            return "Equilátero";
+        } else if (base == 2 * altura || altura == 2 * base) {
+            return "Isósceles";
+        } else {
+            return "Escaleno";
+        }
+    }
+
+    @Override
+    double calcularArea() {
+        return (base * altura) / 2;
+    }
+
+    @Override
+    double calcularPerimetro() {
+        double hipotenusa = calcularHipotenusa();
+        return base + altura + hipotenusa;
+    }
+}
+
+// Clase para el rombo
+class Rombo extends FiguraGeometrica {
+    double diagonalMayor;
+    double diagonalMenor;
+    double lado;
+
+    Rombo(double diagonalMayor, double diagonalMenor, double lado) {
+        this.diagonalMayor = diagonalMayor;
+        this.diagonalMenor = diagonalMenor;
+        this.lado = lado;
+    }
+
+    @Override
+    double calcularArea() {
+        return (diagonalMayor * diagonalMenor) / 2;
+    }
+
+    @Override
+    double calcularPerimetro() {
+        return 4 * lado;
+    }
+}
+
+// Clase para el trapecio
+class Trapecio extends FiguraGeometrica {
+    double baseMayor;
+    double baseMenor;
+    double lado1;
+    double lado2;
+    double altura;
+
+    Trapecio(double baseMayor, double baseMenor, double lado1, double lado2, double altura) {
+        this.baseMayor = baseMayor;
+        this.baseMenor = baseMenor;
+        this.lado1 = lado1;
+        this.lado2 = lado2;
+        this.altura = altura;
+    }
+
+    @Override
+    double calcularArea() {
+        return ((baseMayor + baseMenor) * altura) / 2;
+    }
+
+    @Override
+    double calcularPerimetro() {
+        return baseMayor + baseMenor + lado1 + lado2;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Ejemplo de uso
+        FiguraGeometrica circulo = new Circulo(5);
+        System.out.println("Área del círculo: " + circulo.calcularArea());
+        System.out.println("Perímetro del círculo: " + circulo.calcularPerimetro());
+
+        FiguraGeometrica rectangulo = new Rectangulo(10, 6);
+        System.out.println("Área del rectángulo: " + rectangulo.calcularArea());
+        System.out.println("Perímetro del rectángulo: " + rectangulo.calcularPerimetro());
+
+        FiguraGeometrica cuadrado = new Cuadrado(4);
+        System.out.println("Área del cuadrado: " + cuadrado.calcularArea());
+        System.out.println("Perímetro del cuadrado: " + cuadrado.calcularPerimetro());
+
+        FiguraGeometrica triangulo = new TrianguloRectangulo(5, 12);
+        System.out.println("Área del triángulo: " + triangulo.calcularArea());
+        System.out.println("Perímetro del triángulo: " + triangulo.calcularPerimetro());
+        System.out.println("Hipotenusa del triángulo: " + ((TrianguloRectangulo) triangulo).calcularHipotenusa());
+        System.out.println("Tipo de triángulo: " + ((TrianguloRectangulo) triangulo).determinarTipoTriangulo());
+
+        FiguraGeometrica rombo = new Rombo(8, 6, 5);
+        System.out.println("Área del rombo: " + rombo.calcularArea());
+        System.out.println("Perímetro del rombo: " + rombo.calcularPerimetro());
+
+        FiguraGeometrica trapecio = new Trapecio(12, 8, 5, 9, 4);
+        System.out.println("Área del trapecio: " + trapecio.calcularArea());
+        System.out.println("Perímetro del trapecio: " + trapecio.calcularPerimetro());
+    }
+}
