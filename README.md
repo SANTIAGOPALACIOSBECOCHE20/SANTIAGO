@@ -1,4 +1,4 @@
-# SANTIAGO
+# JAVA.
 import java.util.*;
 
 public class Automóvil {
